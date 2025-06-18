@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SAE2.03.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+<link rel="stylesheet" href="file:///d%3A/SAE2.03/SAE2.03/style.css" type="text/css">
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="rapport-final-sae-203">Rapport final SAE 2.03</h1>
+<h2 id="fait-par-oussama-houaidj-salah-eddine-houaidj-isshak-abdelalidate-23-mars-2025">Fait par <strong>Oussama Houaidj, Salah Eddine Houaidj, Isshak Abdelali</strong>
+Date: <strong>23 mars 2025</strong></h2>
+<h1 id="sommaire">Sommaire</h1>
+<ul>
+<li><a href="#rapport-final-sae-203">Rapport final SAE 2.03</a>
+<ul>
+<li><a href="#date-23-mars-2025">Date: <strong>23 mars 2025</strong></a></li>
+</ul>
+</li>
+<li><a href="#sommaire">Sommaire</a></li>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#semaine-1">Semaine 1</a>
+<ul>
+<li><a href="#installation-de-la-vm">Installation de la VM</a></li>
+<li><a href="#questions-">Questions ?</a>
+<ul>
+<li><a href="#1-quest-ce-quun-fichier-iso-bootable-">1. Qu'est-ce qu'un fichier ISO bootable ?</a></li>
+<li><a href="#2-quest-ce-que-mate--gnome-">2. Qu'est-ce que MATE ? GNOME ?</a></li>
+<li><a href="#3-quest-ce-quun-serveur-web-">3. Qu'est-ce qu'un serveur web ?</a></li>
+<li><a href="#4-quest-ce-quun-serveur-ssh-">4. Qu'est-ce qu'un serveur SSH ?</a></li>
+<li><a href="#5-quest-ce-quun-serveur-mandataire-">5. Qu'est-ce qu'un serveur mandataire ?</a></li>
+<li><a href="#6-quest-ce-que-le-projet-debian--do%C3%B9-vient-le-nom-debian-">6. Qu’est-ce que le Projet Debian ? D’où vient le nom Debian ?</a></li>
+<li><a href="#7-les-dur%C3%A9es-de-prise-en-charge-des-versions-debian">7. Les durées de prise en charge des versions Debian</a></li>
+<li><a href="#8-dur%C3%A9e-de-fourniture-des-mises-%C3%A0-jour-de-s%C3%A9curit%C3%A9">8. Durée de fourniture des mises à jour de sécurité</a></li>
+<li><a href="#9-combien-de-versions-sont-maintenues-par-debian-">9. Combien de versions sont maintenues par Debian ?</a></li>
+<li><a href="#10-do%C3%B9-viennent-les-noms-de-code-des-distributions-debian-">10. D’où viennent les noms de code des distributions Debian ?</a></li>
+<li><a href="#11-combien-et-quelles-architectures-sont-prises-en-charge-par-debian-bullseye-">11. Combien et quelles architectures sont prises en charge par Debian Bullseye ?</a></li>
+<li><a href="#12-le-premier-et-dernier-nom-de-code-utilis%C3%A9-par-debian">12. Le premier et dernier nom de code utilisé par Debian</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#semaine-2">Semaine 2</a>
+<ul>
+<li><a href="#apprentissage-markdown">Apprentissage Markdown</a></li>
+<li><a href="#%C3%A0-la-semaine-prochaine-pour-la-semaine-3-">À la semaine prochaine pour la semaine 3 !</a></li>
+</ul>
+</li>
+<li><a href="#semaine-3">Semaine 3</a>
+<ul>
+<li><a href="#configuration-globale-de-git">Configuration globale de Git</a></li>
+<li><a href="#questions--">Questions  ?</a>
+<ul>
+<li><a href="#11-quest-ce-que-le-logiciel-gitk--comment-se-lance-t-il-">1.1. Qu’est-ce que le logiciel gitk ? Comment se lance-t-il ?</a></li>
+<li><a href="#12-quest-ce-que-le-logiciel-git-gui--comment-se-lance-t-il-">1.2. Qu’est-ce que le logiciel git-gui ? Comment se lance-t-il ?</a></li>
+<li><a href="#21-pourquoi-avez-vous-choisi-ce-logiciel-">2.1. Pourquoi avez-vous choisi ce logiciel ?</a></li>
+<li><a href="#22-comment-lavez-vous-install%C3%A9-">2.2. Comment l’avez vous installé ?</a></li>
+<li><a href="#23-comparaison-entre-les-diff%C3%A9rents-outils">2.3. Comparaison entre les différents outils</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#semaine-4">Semaine 4</a>
+<ul>
+<li><a href="#introduction-1">Introduction</a></li>
+</ul>
+</li>
+<li><a href="#installation-de-gitea">Installation de Gitea</a>
+<ul>
+<li><a href="#question-">Question ?</a>
+<ul>
+<li><a href="#1-quest-ce-que-gitea-">1. Qu’est-ce que Gitea ?</a></li>
+<li><a href="#2-%C3%A0-quels-logiciels-bien-connus-dans-ce-domaine-peut-on-le-comparer-">2. À quels logiciels bien connus dans ce domaine peut-on le comparer ?</a></li>
+<li><a href="#3-quest-ce-quun-fork-dans-le-domaine-du-d%C3%A9veloppement-logiciel-">3. Qu’est-ce qu’un &quot;fork&quot; dans le domaine du développement logiciel ?</a></li>
+<li><a href="#4-de-quel-logiciel-gitea-est-il-le-fork--ce-logiciel-existe-t-il-encore-">4. De quel logiciel Gitea est-il le fork ? Ce logiciel existe-t-il encore ?</a></li>
+</ul>
+</li>
+<li><a href="#suite-installation-gitea">Suite installation Gitea</a></li>
+</ul>
+</li>
+<li><a href="#fin">Fin</a></li>
+</ul>
+<hr>
+<h1 id="introduction">Introduction</h1>
+<p>Bonjour a vous et bienvenue dans notre rapport !</p>
+<p>Nous sommes heureux de vous présenter le travail que nous avons réalisé dans le cadre de la ==SAE2.03==. Ce projet nous a permis de mettre en pratique nos compétences apprise tout au long de la SAE.</p>
+<p>Nous espérons que vous apprécierez notre travail !</p>
+<h1 id="semaine-1">Semaine 1</h1>
+<h2 id="installation-de-la-vm">Installation de la VM</h2>
+<p>Pour l’installation de la VM, j’ai dans un premier temps conçu celle-ci en faisant bien attention aux paramètres demandés lors de la semaine 1, à savoir <strong>2048 Mo de mémoire</strong> et <strong>20 Go de stockage</strong>. Une fois la machine configurée comme l’énoncé le demandait, j’ai alors dû me procurer un ISO de la version 11 de Debian.</p>
+<p>Alors plus à l’aise grâce à la SAE 1.03 effectuée il y a de cela plusieurs mois, j’ai alors décidé d’effectuer de nouveau une installation manuelle via une image ISO. J’ai alors sélectionné &quot;Install&quot; et j’ai commencé mon installation en faisant bien attention à remplir les mêmes caractéristiques que dans l’énoncé.</p>
+<p>Il est important de rappeler que lorsqu’on choisit d’effectuer l’installation de cette manière, tout s’effectue via le clavier (espace pour sélectionner/désélectionner, etc.).</p>
+<p>Ensuite, il suffit de suivre les instructions indiquées dans le document de la semaine 1 et nous devrions finir par obtenir une VM avec ces caractéristiques.</p>
+<p><img src="img/VMparam.PNG" alt="VM param"></p>
+<p>Étant donné que l'installation prend un temps considérable, j'ai donc commencé à répondre a quelques questions. Pour la plupart des réponses, j'ai pu les obtenir directement sur le site officiel de Debian.</p>
+<p>Une fois l'installation terminée, je me suis connecté avec les identifiants que j'avais choisis. J'ai lancé un terminal avec cette commande :</p>
+<pre class="hljs"><code><div>CTRL+Alt+T
+</div></code></pre>
+<p>Ensuite j'ajoute mon User au groupe sudo pour avoir les <strong><a href="https://www.linuxtricks.fr/wiki/sudo-utiliser-et-parametrer-sudoers">droits sudo</a></strong> avec ces commandes :</p>
+<pre class="hljs"><code><div> su -(user)
+ usermod -aG sudo user
+</div></code></pre>
+<p><em>C'est tout ce qu'il fallait faire pour notre VM.
+Passons maintenant aux questions de la semaine 1.</em></p>
+<h2 id="questions">Questions ?</h2>
+<h3 id="1-quest-ce-quun-fichier-iso-bootable">1. Qu'est-ce qu'un fichier ISO bootable ?</h3>
+<p>Un <strong><a href="https://www.ionos.fr/digitalguide/serveur/know-how/quest-ce-quun-fichier-iso/#:~:text=Le%20terme%20%C2%AB%20fichier%20ISO%20%C2%BB%20ou,DVD%20ou%20un%20Blu-Ray.">fichier ISO</a></strong> est une copie numérique exacte d'un disque, comme un CD, un DVD ou un Blu-ray. Lorsqu'il est <em>&quot;bootable&quot;</em>, cela signifie qu'il peut être utilisé pour démarrer un ordinateur. Ces fichiers sont souvent utilisés pour installer des systèmes d'exploitation ou des logiciels. Pour les utiliser, on les copie généralement sur une clé USB, de manière à ce qu'on puisse démarrer l'ordinateur avec cette clé et installer ce qui est contenu dans l'ISO.</p>
+<h3 id="2-quest-ce-que-mate--gnome">2. Qu'est-ce que MATE ? GNOME ?</h3>
+<p><strong><a href="https://doc.ubuntu-fr.org/mate">MATE</a></strong> et <strong><a href="https://doc.ubuntu-fr.org/gnome">GNOME</a></strong> sont des types de bureaux utilisés sur des ordinateurs qui tournent avec des systèmes comme Linux.</p>
+<ul>
+<li>
+<p>GNOME : C'est un bureau moderne et populaire, connu pour son interface simple et facile à utiliser. Il est souvent utilisé par des systèmes comme Ubuntu. Son but est de rendre l'usage de l'ordinateur plus rapide et agréable avec des outils pratiques et une interface claire.</p>
+</li>
+<li>
+<p>MATE : C'est un bureau qui ressemble à l'ancien GNOME avant qu'il ne change. Il est conçu pour ceux qui préfèrent une apparence plus traditionnelle, avec un menu et une interface familière. MATE est aussi moderne tout en gardant un style classique.</p>
+</li>
+</ul>
+<blockquote>
+<p>Voici un exemple d'environnement GNOME :
+<img src="img/gnome.png" alt="gnome">
+Et Voici un exemple d'environnement Mate :
+<img src="img/mate.jpg" alt="mate"></p>
+</blockquote>
+<h3 id="3-quest-ce-quun-serveur-web">3. Qu'est-ce qu'un serveur web ?</h3>
+<p>Un <strong><a href="https://www.ovhcloud.com/fr/learn/what-is-web-server/">serveur web</a></strong> est un logiciel ou un matériel dédié qui sert du contenu web aux utilisateurs via le protocole HTTP ou HTTPS. Lorsqu'un utilisateur saisit une URL dans son navigateur, ce dernier envoie une requête au serveur web correspondant, qui répond en fournissant les ressources demandées, telles que des pages HTML, des images ou des fichiers. Les serveurs web les plus couramment utilisés incluent Apache, Nginx et Microsoft Internet Information Services (IIS).</p>
+<h3 id="4-quest-ce-quun-serveur-ssh">4. Qu'est-ce qu'un serveur SSH ?</h3>
+<p>Les <strong><a href="https://www.it-connect.fr/chapitres/quest-ce-que-ssh/">serveurs SSH</a></strong> (Secure Shell) sont des protocoles réseaux qui permettent d'établir des connexions sécurisées entre deux ordinateurs, généralement pour accéder à un système distant en ligne de commande. Un serveur SSH est le logiciel qui implémente ce protocole sur la machine distante, permettant aux utilisateurs de se connecter de manière sécurisée pour exécuter des commandes, transférer des fichiers ou gérer le système. OpenSSH est l'une des implémentations les plus répandues de ce protocole.</p>
+<h3 id="5-quest-ce-quun-serveur-mandataire">5. Qu'est-ce qu'un serveur mandataire ?</h3>
+<p>Un <strong><a href="https://www.techno-science.net/definition/3812.html">serveur mandataire</a></strong> est un intermédiaire entre ton navigateur ou un client, et un site web. Quand tu veux accéder à une page, le proxy reçoit ta demande, la transmet au site web, puis te renvoie la réponse. Les proxys sont utilisés pour plusieurs raisons, comme améliorer la sécurité, contrôler l'accès à Internet, accélérer le chargement des pages en enregistrant des copies des contenus, ou cacher ton adresse IP réelle pour préserver ta confidentialité.</p>
+<h3 id="6-quest-ce-que-le-projet-debian--do%C3%B9-vient-le-nom-debian">6. Qu’est-ce que le Projet Debian ? D’où vient le nom Debian ?</h3>
+<ul>
+<li>
+<p>Le <strong><a href="https://www.debian.org/doc/manuals/project-history/intro.fr.html#:~:text=Le%20projet%20Debian%20est%20un,des%20milliers%20d%27applications%20pr%C3%A9empaquet%C3%A9es.">Projet Debian</a></strong> est un groupe mondial de bénévoles qui travaillent ensemble pour créer un système d'exploitation libre, connu sous le nom de Debian GNU/Linux.</p>
+</li>
+<li>
+<p>Le nom Debian vient des prénoms de Debra, la compagne de Ian Murdock (le fondateur du projet), et de son propre prénom, formant ainsi &quot;Debian&quot;.</p>
+</li>
+</ul>
+<h3 id="7-les-dur%C3%A9es-de-prise-en-charge-des-versions-debian">7. Les durées de prise en charge des versions Debian</h3>
+<p>Il existe trois types de durées de prise en charge pour les versions de Debian :</p>
+<ul>
+<li>
+<p><strong><a href="https://www.debian.org/releases/">Durée minimale</a></strong> : Chaque version stable de Debian est supportée pendant 3 ans, avec des mises à jour de sécurité et des corrections de bugs majeurs.</p>
+</li>
+<li>
+<p><strong><a href="https://wiki.debian.org/LTS">Support Long Terme (LTS)</a></strong> : Après les 3 ans de support initial, une version stable bénéficie de 2 années supplémentaires de support via le projet LTS, ce qui porte le total à 5 ans.</p>
+</li>
+<li>
+<p><strong><a href="https://wiki.debian.org/LTS/Extended">Support Long Terme Étendu (ELTS)</a></strong> : Si une version nécessite encore du support après 5 ans, le projet ELTS propose jusqu'à 5 années supplémentaires, ce qui porte le total à 10 ans. Ce service est géré par Freexian et n'est pas un projet officiel de Debian.</p>
+</li>
+</ul>
+<h3 id="8-dur%C3%A9e-de-fourniture-des-mises-%C3%A0-jour-de-s%C3%A9curit%C3%A9">8. Durée de fourniture des mises à jour de sécurité</h3>
+<p>Les  <strong><a href="https://www.debian.org/releases/">mises a jours de sécurtié</a></strong> sont fournies pendant les ==3== premières années de support officiel. Ensuite, le projet LTS prend le relais pendant ==2== années supplémentaires, suivi, si nécessaire, par le projet ELTS qui offre jusqu'à ==5== années de support additionnel. Cela permet d'avoir jusqu'à ==10== ans de mises à jour de sécurité pour une version donnée.</p>
+<h3 id="9-combien-de-versions-sont-maintenues-par-debian">9. Combien de versions sont maintenues par Debian ?</h3>
+<p>On en compte trois que ceux sont ci:</p>
+<ul>
+<li><strong><a href="https://www.debian.org/releases">Stable</a></strong> : Version actuelle recommandée pour la production.</li>
+<li><strong><a href="https://www.debian.org/releases">Testing</a></strong> : Future version stable en cours de test.</li>
+<li><strong><a href="https://www.debian.org/releases">Unstable (Sid)</a></strong> : Version en développement continu, également appelée &quot;Sid&quot;.</li>
+</ul>
+<h3 id="10-do%C3%B9-viennent-les-noms-de-code-des-distributions-debian">10. D’où viennent les noms de code des distributions Debian ?</h3>
+<p>Les <strong><a href="https://www.debian.org/doc/manuals/project-history/project-history.fr.pdf">noms de codes</a></strong> des versions de Debian sont inspirés des personnages du film d'animation <em>&quot;Toy Story&quot;</em> de Pixar. Par exemple, <em>&quot;Buzz&quot;</em> pour Debian 1.1 et <em>&quot;Rex&quot;</em> pour Debian 1.2.</p>
+<h3 id="11-combien-et-quelles-architectures-sont-prises-en-charge-par-debian-bullseye">11. Combien et quelles architectures sont prises en charge par Debian Bullseye ?</h3>
+<p>Debian 11 <strong><a href="https://www.debian.org/releases/bullseye/">Bullseye</a></strong> prend en charge plusieurs architectures, notamment :</p>
+<ul>
+<li>amd64 (PC 64 bits)</li>
+<li>arm64 (ARM 64 bits)</li>
+<li>armel (ARM EABI)</li>
+<li>armhf (ARM Hard Float)</li>
+<li>i386 (PC 32 bits)</li>
+<li>mips (MIPS (Big Endian))</li>
+<li>mips64el (MIPS 64 bits (Little Endian))</li>
+<li>mipsel (MIPS (Little Endian))</li>
+<li>ppc64el (PowerPC 64 bits Little Endian)</li>
+<li>s390x (IBM System z)</li>
+</ul>
+<h3 id="12-le-premier-et-dernier-nom-de-code-utilis%C3%A9-par-debian">12. Le premier et dernier nom de code utilisé par Debian</h3>
+<p><strong>Premier nom de code utilisé :</strong></p>
+<ul>
+<li><strong><a href="https://www.debian.org/doc/manuals/project-history/project-history.fr.pdf">Buzz</a></strong> : Le premier nom de code utilisé fut &quot;Buzz&quot; pour Debian 1.1.</li>
+</ul>
+<p><strong>Quand a-t-il été annoncé ?</strong></p>
+<ul>
+<li><strong><a href="https://www.debian.org/doc/manuals/project-history/project-history.fr.pdf">Annonce</a></strong> : Debian 1.1 &quot;Buzz&quot; a été annoncée le 17 juin 1996.</li>
+</ul>
+<p><strong>Quel était le numéro de version de cette distribution ?</strong></p>
+<ul>
+<li><strong><a href="https://www.debian.org/doc/manuals/project-history/project-history.fr.pdf">Verson</a></strong>  : Le numéro de version était 1.1.</li>
+</ul>
+<p>Un bon nombre de question auquels on a finit par répondre.</p>
+<p><em>Cette semaine 1 fut éprouvante.</em></p>
+<hr>
+<h1 id="semaine-2">Semaine 2</h1>
+<h2 id="apprentissage-markdown">Apprentissage Markdown</h2>
+<p>Durant la semaine 2, aucun travail spécifique ne nous a été donné, mais une tâche importante nous a été confiée : choisir un langage de balisage léger et l'apprendre. Nous avions le choix entre <strong>AsciiDoc</strong> et <strong>Markwon</strong>. Après réflexion, notre groupe a opté pour <strong>Markdown</strong>.</p>
+<p>Nous avons donc profité de cette période pour nous concentrer sur l’apprentissage des bases de <strong>Markdown</strong>. Nous avons exploré les principales fonctionnalités, telles que la création de titres, de listes, l'ajout de liens et l'intégration d'images dans un document. Ce langage étant simple et efficace, nous avons décidé de l'utiliser pour la rédaction de notre rapport.</p>
+<p>En plus de cela, nous avons étudié l’histoire de <strong>Markdown</strong> ainsi que sa documentation officielle. Cela nous a permis de mieux comprendre son évolution et son rôle dans le monde de la rédaction technique.</p>
+<p>Un autre point essentiel que nous avons abordé est l'exportation de documents <strong>Markdown</strong> en formats <strong>PDF</strong> et <strong>HTML</strong>, ce qui est crucial pour notre projet, car ces formats sont demandés pour la remise du rapport. Nous avons appris à utiliser des outils comme <strong>Pandoc</strong> pour effectuer ces conversions.</p>
+<p>Ainsi, bien que cette semaine ait été principalement dédiée à l'apprentissage, elle a été essentielle pour établir les bases de notre travail futur. L'apprentissage a été long et rigoureux, mais il nous permettra de réaliser un rapport structuré et bien présenté à l’aide de <strong>Markdown</strong>.</p>
+<hr>
+<blockquote>
+<p><strong>Remarque</strong> : Cette phase d’apprentissage a été cruciale pour nous familiariser avec un outil indispensable pour notre projet, et nous sommes désormais prêts à appliquer nos nouvelles compétences dans la rédaction du rapport final.</p>
+</blockquote>
+<h2 id="%C3%A0-la-semaine-prochaine-pour-la-semaine-3">À la semaine prochaine pour la semaine 3 !</h2>
+<h1 id="semaine-3">Semaine 3</h1>
+<p>Durant cette semaine,nous avons suivi les étapes d'installation et de configuration comme indiqué dans le document de <strong>Git</strong>, un logiciel libre utilisé pour la gestion de versions de projets. Nous avons également installé les outils graphiques associés à Git, comme <strong>gitk</strong> et <strong>git-gui</strong>, et comparé ces outils avec une autre application graphique choisie parmi une liste.</p>
+<h2 id="configuration-globale-de-git">Configuration globale de Git</h2>
+<p>Pour commencer, nous avons configuré Git sur notre machine virtuelle avec Debian en suivant les étapes indiqués dnas la semaine 3. Nous avons utilisé les commandes suivantes pour paramétrer Git sur notre compte user en prenant comme exemple un membre de notre groupe :</p>
+<pre class="hljs"><code><div>git config --global user.name <span class="hljs-string">"Oussama Houaidj"</span>
+</div></code></pre>
+<pre class="hljs"><code><div>git config --global user.email <span class="hljs-string">"oussama.houaidj31@gmail.com"</span>
+</div></code></pre>
+<pre class="hljs"><code><div>git config --global init.defaultBranch <span class="hljs-string">"master"</span>
+</div></code></pre>
+<p>Pour installer gitk et git-gui, nous avons simplement utilisé la commande suivante dans le terminal de ma machine :</p>
+<pre class="hljs"><code><div>sudo apt install git-gui
+sudo apt install gitk
+</div></code></pre>
+<h2 id="questions">Questions  ?</h2>
+<h3 id="11-quest-ce-que-le-logiciel-gitk--comment-se-lance-t-il">1.1. Qu’est-ce que le logiciel gitk ? Comment se lance-t-il ?</h3>
+<p><strong><a href="https://www.atlassian.com/fr/git/tutorials/gitk">gitk</a></strong> est un outil graphique qui permet de visualiser l'historique des ==commits== dans un dépôt Git. Il offre une interface conviviale pour parcourir les modifications et branches d’un projet.<br>
+Il se lance avec la commande suivante dans un terminal :</p>
+<pre class="hljs"><code><div>gitk
+</div></code></pre>
+<h3 id="12-quest-ce-que-le-logiciel-git-gui--comment-se-lance-t-il">1.2. Qu’est-ce que le logiciel git-gui ? Comment se lance-t-il ?</h3>
+<p>Pour ce qui est de <strong><a href="https://git-scm.com/docs/git-gui/fr#:~:text=git%20gui%20permet%20aux%20utilisateurs,poussant%20vers%20des%20d%C3%A9p%C3%B4ts%20distants.">git-gui</a></strong> c&quot;est une interface graphique qui permet de réaliser des opérations Git comme le ==commit==, le ==staging== et la gestion des branches sans utiliser la ligne de commande
+Pour le lancer on utilise la commande suivante dans le terminal :</p>
+<pre class="hljs"><code><div>git gui
+</div></code></pre>
+<h3 id="21-pourquoi-avez-vous-choisi-ce-logiciel">2.1. Pourquoi avez-vous choisi ce logiciel ?</h3>
+<p>Notre choix s'est porté sur Gitg et voici pourquoi:</p>
+<ul>
+<li>
+<p><strong>Le prix</strong> :<br>
+Nous avons choisi <strong>gitg</strong> car il est totalement gratuit, ce qui nous arrange bien.</p>
+</li>
+<li>
+<p><strong>La facilité d'installation</strong> :<br>
+L'installation est simple et rapide, ce qui nous a permis de l’installer sans rencontrer de difficultés majeures.</p>
+</li>
+<li>
+<p><strong>La facilité d'utilisation</strong> :<br>
+<strong>gitg</strong> offre une interface claire et intuitive qui nous permet de gérer facilement nos projets Git
+Il nous propose aussi des fonctionnalités graphiques simples pour visualiser l'historique des commits, sans avoir besoin de maîtriser la ligne de commande.</p>
+</li>
+<li>
+<p><strong>Adapté à nos besoins</strong> :<br>
+En plus de sa gratuité et de sa simplicité d'installation, <strong>gitg</strong> répond parfaitement à nos attentes pour un outil léger et facile à utiliser, tout en restant performant pour des projets personnels comme cet SAE
+.</p>
+</li>
+</ul>
+<h3 id="22-comment-lavez-vous-install%C3%A9">2.2. Comment l’avez vous installé ?</h3>
+<p>Comme dit précédemment, nous avons aussi choisi Gitg pour sa facilité d'installation. Voici la commande pour l'installer :</p>
+<pre class="hljs"><code><div>sudo apt install gitg
+</div></code></pre>
+<blockquote>
+<p>Et voici la commande pour le lancer:</p>
+</blockquote>
+<pre class="hljs"><code><div>gitg
+</div></code></pre>
+<blockquote>
+<p>Voici un exemple de l'interface de <strong>gitg</strong>
+<img src="img/gitg.PNG" alt="gitg"></p>
+</blockquote>
+<h3 id="23-comparaison-entre-les-diff%C3%A9rents-outils">2.3. Comparaison entre les différents outils</h3>
+<table>
+<thead>
+<tr>
+<th>Outil</th>
+<th>Avantages</th>
+<th>Inconvénients</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>gitk</strong></td>
+<td>Permet de visualiser graphiquement l’historique des commits</td>
+<td>Interface datée et peu ergonomique</td>
+</tr>
+<tr>
+<td><strong>git-gui</strong></td>
+<td>Facile à utiliser pour faire des commits et gérer les fichiers et l'environnement de simluation</td>
+<td>Moins complet pour la visualisation de l’historique</td>
+</tr>
+<tr>
+<td><strong>gitg</strong></td>
+<td>Interface simple et intuitive, bonne visualisation des commits, léger et rapide</td>
+<td>Moins de fonctionnalités avancées, ne permet pas de gérer toutes les actions Git</td>
+</tr>
+<tr>
+<td><strong>Ligne de commande</strong></td>
+<td>Puissante et flexible, permet un contrôle total</td>
+<td>Moins accessible aux débutants</td>
+</tr>
+</tbody>
+</table>
+<p>Avec cette dernière question, notre travail pour cette semaine est donc terminé. Nous nous retrouverons la semaine prochaine pour la semaine 4, qui sera la dernière de notre rapport.</p>
+<p><em>À la semaine prochaine !</em></p>
+<hr>
+<h1 id="semaine-4">Semaine 4</h1>
+<h2 id="introduction">Introduction</h2>
+<p>On se retrouve pour la dernière semaine de notre <strong>SAE 2.03</strong></p>
+<p>Cette semaine nous avons proceder a l'installation et la configuration de ==<strong>Gitea</strong>== alors accrochez vous bien !</p>
+<h1 id="installation-de-gitea">Installation de Gitea</h1>
+<p>Lors de l'installation de <strong>Gitea</strong> sur notre machine virtuelle, nous avons rapidement constaté un problème majeur : l'incapacité d'accéder au service Gitea depuis l'extérieur de la machine virtuelle
+Cela était donc contraignant car ne nous permettait d'avoir accès que depuis un seul point.
+Le service, fonctionnant sur le port <strong>3000</strong> de la machine virtuelle, n'était pas accessible depuis la machine hôte. Cette situation était liée à la configuration du réseau en mode <strong>NAT</strong>, par défaut sur VirtualBox. Afin de résoudre ce problème, nous avons dû configurer une <strong>redirection de port</strong> pour permettre l'accès à Gitea depuis l'hôte.</p>
+<pre class="hljs"><code><div>https://www.virtualbox.org/manual/UserManual.html<span class="hljs-comment">#networkingdetails</span>
+</div></code></pre>
+<p>Ce lien présent dans le PDF de la semaine 4 et le tableau nous ont permis d'en apprendre plus et de comprendrem mieux ce qu'il fallait faire.</p>
+<p>Nous avons donc configuré la <strong>redirection de port</strong> dans VirtualBox, ce qui a permis de rediriger les messages arrivant sur le port <strong>3000</strong> de la machine physique vers le port <strong>3000</strong> de la machine virtuelle. Grâce à cela, nous avons pu accéder à Gitea depuis notre navigateur sur l’hôte en utilisant l'URL :</p>
+<pre class="hljs"><code><div>http://localhost:3000
+</div></code></pre>
+<p><img src="img/attention.PNG" alt="Attention"></p>
+<blockquote>
+<p>Ce lien ne fonctionnera que depuis le navigateur de l'hôte, comme indiqué.</p>
+</blockquote>
+<p><img src="img/configNAT.PNG" alt="configNAT"></p>
+<blockquote>
+<p>Voici une image qui nous montre la redirection du port qu'il nous fallait reconfigurer.</p>
+</blockquote>
+<h2 id="question">Question ?</h2>
+<h3 id="1-quest-ce-que-gitea">1. Qu’est-ce que Gitea ?</h3>
+<p><strong><a href="https://docs.gitea.com">Gitea</a></strong> est une plateforme que l'on peut héberger soi-même pour aider au développement de logiciels. Elle offre plusieurs fonctionnalités pratiques, comme :</p>
+<ul>
+<li><strong>Hébergement Git</strong> : pour gérer et stocker le code source d'un projet.</li>
+<li><strong>Revue de code</strong> : pour permettre aux développeurs de vérifier et de discuter du code écrit par d'autres.</li>
+<li><strong>Collaboration en équipe</strong> : pour travailler ensemble sur des projets logiciels.</li>
+<li><strong>Gestion des packages</strong> : pour gérer les outils et bibliothèques utilisés dans un projet.</li>
+</ul>
+<p>En somme <strong>Gitea</strong> facilite la vie.</p>
+<h3 id="2-%C3%A0-quels-logiciels-bien-connus-dans-ce-domaine-peut-on-le-comparer">2. À quels logiciels bien connus dans ce domaine peut-on le comparer ?</h3>
+<p>Les logiciels les plus connus et similaires à Gitea sont <strong>GitHub</strong> et <strong>GitLab</strong> que nous connaissons bien car beaucoup utiliser dans notre formation qu'est le BUT Info. Ces deux services permettent également de partager du code et de travailler en équipe sur des projets logiciels. Gitea offre les mêmes fonctionnalités, mais en étant auto-hébergé, ce qui signifie qu'on peut l'installer et le gérer soi-même sur ses propres serveurs.<strong><a href="https://docs.gitea.com">*</a></strong></p>
+<h3 id="3-quest-ce-quun-%22fork%22-dans-le-domaine-du-d%C3%A9veloppement-logiciel">3. Qu’est-ce qu’un &quot;fork&quot; dans le domaine du développement logiciel ?</h3>
+<p>Un <strong><a href="https://docs.github.com/fr/pull-requests/collaborating-with-pull-requests/working-with-forks/fork-a-repo">fork</a></strong> désigne la copie d'un projet déjà existant pour créer une nouvelle version différente. Cela permet à d'autres développeurs de travailler sur un projet sans affecter la version originale. Par exemple, on peut vouloir tester de nouvelles idées ou ajouter des fonctionnalités qui ne sont pas dans la version de base du projet.</p>
+<h3 id="4-de-quel-logiciel-gitea-est-il-le-fork--ce-logiciel-existe-t-il-encore">4. De quel logiciel Gitea est-il le fork ? Ce logiciel existe-t-il encore ?</h3>
+<p>Gitea est un fork de <strong><a href="https://blog.gitea.com/welcome-to-gitea?_highlight=gogs&amp;_highlight=fork">Gogs</a></strong>, un autre service permettant de gérer des projets Git sur des serveurs personnels.
+<strong>Gogs</strong> est toujours disponible et continue d'être maintenu, donc les deux logiciels existent en parallèle, chacun avec ses propres spécificités.</p>
+<p><em>Bien après avoir répondu aux questions, reprenons l'installation.</em></p>
+<h2 id="suite-installation-gitea">Suite installation Gitea</h2>
+<p>Pour la suite de l'installation, nous allons simplement suivre les 4 étapes de l'installation comme décrit dans le document.</p>
+<p>Dans un premier temps, le fait que tout soit en anglais a compliqué la démarche. Lors d'une installation, il faut être précis dans les étapes et les commandes demandées, donc impossible de faire du <em>&quot;à peu près&quot;</em> en traduction.</p>
+<p><strong>Téléchargement de Gitea</strong>
+Je me suis alors rendu sur la page de téléchargement Gitea Download et nous avons choisi le fichier correspondant aux paramètres de ma machine, à savoir linux-amd64, comme recommandé par le service.</p>
+<blockquote>
+<p>À noter qu'il est aussi possible de récupérer le fichier via le GitHub de Gitea (GitHub Releases). On y retrouve également toutes les corrections et mises à jour disponibles.</p>
+</blockquote>
+<p>Ensuite, on installe Gitea avec la commande suivante :</p>
+<pre class="hljs"><code><div>wget -O gitea https://dl.gitea.io/gitea/1.23.5/gitea-1.23.5-linux-amd64
+</div></code></pre>
+<p>Puis, on déplace le fichier vers un emplacement plus approprié :</p>
+<pre class="hljs"><code><div>sudo mv gitea /usr/<span class="hljs-built_in">local</span>/bin/
+</div></code></pre>
+<p>Mais pourquoi avons-nous choisi de déplacer le fichier dans <strong>/usr/local/bin/</strong> ?
+Pour trois raisons :</p>
+<ul>
+<li><strong>Pratique</strong> : Une fois dedans, on peut taper gitea n'importe où dans le terminal, sans devoir naviguer dans les dossiers.</li>
+<li><strong>Propre</strong> : /usr/local/bin/ est l'emplacement classique pour les logiciels installés manuellement, évitant ainsi d'avoir un fichier perdu quelque part.</li>
+<li><strong>Moins de galères</strong>: Si on le laisse ailleurs, il faudra systématiquement faire ./gitea ou modifier le PATH pour l'exécuter globalement.</li>
+</ul>
+<p>Verifions maintenant la version avec la commande :</p>
+<pre class="hljs"><code><div>gitea --version
+</div></code></pre>
+<p><img src="img/verif version.PNG" alt="verif"></p>
+<p>Mais avant cela, il faut s'accorder les droits d'exécution avec une commande très simple:</p>
+<pre class="hljs"><code><div>sudo chmod u+x /usr/<span class="hljs-built_in">local</span>/bin/gitea
+</div></code></pre>
+<p>À partir de là, tout est bon !</p>
+<p>Passons maintenant à la création de notre utilisateur Git.</p>
+<p>Pour ce faire, nous allons utiliser cette commande qui nous permettra de créer l'utilisateur:</p>
+<pre class="hljs"><code><div>adduser \
+   --system \
+   --shell /bin/bash \
+   --gecos <span class="hljs-string">'Git Version Control'</span> \
+   --group \
+   --disabled-password \
+   --home /home/git \
+   git
+</div></code></pre>
+<p><img src="img/etape creation.PNG" alt="crea gitea"></p>
+<blockquote>
+<p>Voici une image de la commande.</p>
+</blockquote>
+<p>Passons en mode root pour la suite :</p>
+<pre class="hljs"><code><div>su -
+</div></code></pre>
+<p>Puis il suffit de <strong>copier-coller</strong> les commandes demandées.</p>
+<p>Pour <strong>démarrer</strong> Gitea, on utilise la commande :</p>
+<pre class="hljs"><code><div>gitea web
+</div></code></pre>
+<p>Si tout fonctionne correctement, Gitea se lance et affiche les logs dans le terminal.
+Ensuite, on accède à l'interface web. Avant cela, il faut récupérer l'adresse IP de notre VM avec la commande :</p>
+<pre class="hljs"><code><div>ip a
+</div></code></pre>
+<p>Cette IP nous permettra d’accéder à Gitea via un navigateur, dans notre cas, Firefox.</p>
+<pre class="hljs"><code><div>http://localhost:3000/
+</div></code></pre>
+<blockquote>
+<p>Nous permet d'accéder a Gitea Web</p>
+</blockquote>
+<p>Une fois sur l’interface, il faut suivre scrupuleusement les indications données dans les consignes.
+<img src="img/acceder a gitea.PNG" alt="acces gitea"></p>
+<p>Nous avons rencontré de nombreuses difficultés avec cette étape, notamment à cause d’un problème récurrent lié aux droits. Nous avons eu à plusieurs reprises des <strong>&quot;permission denied&quot;</strong>, ce qui a été éprouvant, mais j'ai finalement réussi grâce à la commande <strong>chmod</strong>, que j'ai adaptée à mes besoins.</p>
+<p>Revérifions notre version de Gitea :</p>
+<pre class="hljs"><code><div>gitea --version
+</div></code></pre>
+<p><img src="img/verif version.PNG" alt="verif gitea"></p>
+<p>Pour ce qui est de <strong>mettre à jour</strong> sans avoir à tout reconfigurer, cette commande est capable de répondre à nos besoins :</p>
+<pre class="hljs"><code><div>sudo wget -O /usr/<span class="hljs-built_in">local</span>/bin/gitea
+</div></code></pre>
+<p>Un nouveau petit coup de <strong>gitea -version</strong> pour vérifier tout ça et c'est nickel !</p>
+<p>Tout est bon, Gitea est installé et prêt à être configuré !
+<img src="img/gitea interface.png" alt="interface gitea"></p>
+<p>Nous avons réalisé plusieurs tests pour vérifier si tout fonctionnait bien.</p>
+<p><img src="img/test gitea.png" alt="test gitea"></p>
+<blockquote>
+<p>le test fonctionne et prouve alors que l’environnement est fonctionnel</p>
+</blockquote>
+<h1 id="fin">Fin</h1>
+<p>Voici donc ce qui conclut notre travail pour cette dernière semaine et pour l'ensemble de cette SAE. Nous avons été très heureux de pouvoir en apprendre davantage sur les réseaux, les différents outils Git, mais aussi d'apprendre un nouveau langage, le Markdown.</p>
+<p>Merci d'avoir suivi notre rapport. Nous espérons que vous l'avez apprécié et que vous en garderez un bon souvenir. Ce projet touche désormais à sa fin, et nous sommes fiers d'avoir pu réaliser un rapport que nous estimons de qualité.</p>
+<p><strong>Au revoir !</strong></p>
+<p><img src="img/goku.gif" alt="Goku"></p>
+<pre class="hljs"><code><div></div></code></pre>
+
+</body>
+</html>
